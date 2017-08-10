@@ -2,15 +2,7 @@ import React, { Component } from 'react'
 import omit from 'lodash.omit'
 
 import { propTypes, defaultProps } from './props'
-import YouTube from './players/YouTube'
-import SoundCloud from './players/SoundCloud'
-import Vimeo from './players/Vimeo'
-import Facebook from './players/Facebook'
 import FilePlayer from './players/FilePlayer'
-import Streamable from './players/Streamable'
-import Vidme from './players/Vidme'
-import Wistia from './players/Wistia'
-import DailyMotion from './players/DailyMotion'
 
 export default class ReactPlayer extends Component {
   static displayName = 'ReactPlayer'
@@ -79,38 +71,13 @@ export default class ReactPlayer extends Component {
   }
   renderPlayers () {
     // Build array of players to render based on URL and preload config
-    const { url, youtubeConfig, vimeoConfig, dailymotionConfig } = this.props
+    const { url } = this.props
     const players = []
-    if (YouTube.canPlay(url)) {
-      players.push(YouTube)
-    } else if (SoundCloud.canPlay(url)) {
-      players.push(SoundCloud)
-    } else if (Vimeo.canPlay(url)) {
-      players.push(Vimeo)
-    } else if (Facebook.canPlay(url)) {
-      players.push(Facebook)
-    } else if (DailyMotion.canPlay(url)) {
-      players.push(DailyMotion)
-    } else if (Streamable.canPlay(url)) {
-      players.push(Streamable)
-    } else if (Vidme.canPlay(url)) {
-      players.push(Vidme)
-    } else if (Wistia.canPlay(url)) {
-      players.push(Wistia)
-    } else if (url) {
+    if (url) {
       // Fall back to FilePlayer if nothing else can play the URL
       players.push(FilePlayer)
     }
     // Render additional players if preload config is set
-    if (!YouTube.canPlay(url) && youtubeConfig.preload) {
-      players.push(YouTube)
-    }
-    if (!Vimeo.canPlay(url) && vimeoConfig.preload) {
-      players.push(Vimeo)
-    }
-    if (!DailyMotion.canPlay(url) && dailymotionConfig.preload) {
-      players.push(DailyMotion)
-    }
     return players.map(this.renderPlayer)
   }
   ref = player => {
@@ -125,9 +92,6 @@ export default class ReactPlayer extends Component {
     return (
       <Player
         key={Player.displayName}
-        youtubeConfig={youtubeConfig}
-        vimeoConfig={vimeoConfig}
-        dailymotionConfig={dailymotionConfig}
         {...props}
       />
     )
