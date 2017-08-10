@@ -52,6 +52,7 @@ export default class FilePlayer extends Base {
     if (this.shouldUseHLS(url)) {
       loadSDK(HLS_SDK_URL, HLS_GLOBAL).then(Hls => {
         this.hls = new Hls()
+        this.hls.on(Hls.Events.ERROR, (_, e) => this.props.onError(e))
         this.hls.loadSource(url)
         this.hls.attachMedia(this.player)
       })
