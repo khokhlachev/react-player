@@ -53,11 +53,7 @@ export default class Base extends Component {
         this.seekOnPlay = null
       }, SEEK_ON_PLAY_EXPIRY)
     }
-    // Return the seconds to seek to
-    if (amount > 0 && amount < 1) {
-      // Convert fraction to seconds based on duration
-      return this.getDuration() * amount
-    }
+
     return amount
   }
   onPlay = () => {
