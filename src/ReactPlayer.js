@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import omit from 'lodash.omit'
+import isEqual from 'lodash.isequal'
 
 import { propTypes, defaultProps } from './props'
 import FilePlayer from './players/FilePlayer'
@@ -22,7 +23,8 @@ export default class ReactPlayer extends Component {
       this.props.playbackRate !== nextProps.playbackRate ||
       this.props.height !== nextProps.height ||
       this.props.width !== nextProps.width ||
-      this.props.hidden !== nextProps.hidden
+      this.props.hidden !== nextProps.hidden ||
+      !isEqual(this.props.fileConfig, nextProps.fileConfig)
     )
   }
   seekTo = fraction => {
