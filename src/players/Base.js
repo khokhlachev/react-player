@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import isEqual from 'lodash.isequal';
 
 import { propTypes, defaultProps } from '../props'
 
@@ -43,7 +44,7 @@ export default class Base extends Component {
     }
   }
   shouldComponentUpdate (nextProps) {
-    return this.props.url !== nextProps.url
+    return this.props.url !== nextProps.url || !isEqual(this.props.fileConfig, nextProps.fileConfig);
   }
   seekTo (amount) {
     // When seeking before player is ready, store value and seek later
