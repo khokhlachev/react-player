@@ -72,7 +72,11 @@ export default class FilePlayer extends Base {
     }
   }
   play () {
-    this.player.play().catch(this.props.onError)
+    const playPromise = this.player.play()
+
+    if (playPromise !== undefined) {
+      playPromise.catch(this.props.onError)
+    }
   }
   pause () {
     this.player.pause()
